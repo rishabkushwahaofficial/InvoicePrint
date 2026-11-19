@@ -1,1 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Free Invoice Generator – No Login, 100% Free</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Create clean PDF, thermal slip, or WhatsApp invoices in 30 seconds. No login, 100% free, runs privately in your browser.">
+<meta name="theme-color" content="#075E54">
+<meta property="og:title" content="Free Invoice Generator – No Login, 100% Free">
+<meta property="og:description" content="Create clean PDF, thermal slips, or WhatsApp invoices in 30 seconds. Private, free, works offline.">
+<meta property="og:type" content="website">
+<style id="pageStyle"></style>
+<style>
+:root{--g:#25D366;--gd:#075E54;--bg:#f1f5f2;--card:#fff;--tx:#14211c;--mu:#5b6b64;--bd:#d3ded8;--in:#fff;--warn:#fff3cd;--warnt:#664d03;--chat:#e5ddd5;--bub:#dcf8c6}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1411;--card:#16211c;--tx:#e6eee9;--mu:#9bada5;--bd:#2b3b34;--in:#0f1814;--warn:#3a2f0b;--warnt:#ffe08a;--chat:#0b141a;--bub:#005c4b}}
+*{box-sizing:border-box}
+html,body{max-width:100%;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+header{background:var(--gd);color:#fff;padding:22px 16px 16px;text-align:center}
+h1{margin:0;font-size:clamp(1.3rem,4.5vw,2rem);line-height:1.2}
+.tag{margin:6px 0 12px;opacity:.9}
+.badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.badges span{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:5px 12px;border-radius:99px;font-size:.85rem}
+
+/* Ad Visibility Rules */
+.ad-wrap{text-align:center;margin:14px auto;width:100%;max-width:100%;overflow:hidden;display:flex;justify-content:center;align-items:center}
+.ad-desk{display:none}
+.ad-mob{display:flex}
+.ad-side{display:none}
+@media(min-width:768px){
+  .ad-desk{display:flex}
+  .ad-mob{display:none}
+}
+@media(min-width:1580px){
+  .ad-side{display:block;position:fixed;top:90px;z-index:10}
+  .ad-left{left:10px}
+  .ad-right{right:10px}
+}
+
+main{max-width:1240px;margin:0 auto;padding:16px;display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:960px){main{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}.right{position:sticky;top:12px}.fab{display:none!important}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:16px}
+.card h2{margin:0 0 12px;font-size:1.05rem;color:var(--gd)}
+@media(prefers-color-scheme:dark){.card h2{color:var(--g)}}
+.grid{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+.full{grid-column:1/-1}
+label{display:block;font-size:.82rem;color:var(--mu);margin-bottom:3px}
+input,select,textarea{width:100%;min-height:44px;padding:9px 11px;border:1px solid var(--bd);border-radius:10px;background:var(--in);color:var(--tx);font:inherit}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid var(--g);outline-offset:1px}
+.chk{display:flex;align-items:center;gap:8px;min-height:44px;color:var(--tx);font-size:.92rem;margin:0}
+.chk input{width:20px;min-height:20px;height:20px}
+.row{display:grid;grid-template-columns:1fr 1fr 1fr 44px;gap:6px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px dashed var(--bd)}
+.row input:first-child{grid-column:1/-1}
+.amt{display:flex;align-items:center;justify-content:flex-end;font-weight:700;padding:0 4px;overflow:hidden}
+.x{border:1px solid var(--bd);background:var(--in);color:#c62828;border-radius:10px;min-height:44px;font-size:1rem;cursor:pointer}
+button.b{min-height:46px;padding:0 16px;border:0;border-radius:12px;font:inherit;font-weight:600;cursor:pointer;background:var(--gd);color:#fff}
+button.b.g{background:var(--g);color:#06301f}
+button.b.o{background:transparent;color:var(--tx);border:1px solid var(--bd)}
+button.b.r{background:#c62828}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}.btns .b{flex:1 1 150px}
+.tot{display:flex;justify-content:space-between;padding:4px 0}
+.gt{font-size:1.2rem;font-weight:800;background:rgba(37,211,102,.18);padding:10px 12px;border-radius:10px;margin-top:6px}
+.warn{background:var(--warn);color:var(--warnt);border:1px solid #e0a800;border-radius:12px;padding:12px 14px;font-weight:600;margin:10px 0}
+.info{font-size:.85rem;background:rgba(37,211,102,.12);border-left:4px solid var(--g);padding:8px 12px;border-radius:8px;margin-bottom:12px}
+.tabs{display:flex;gap:6px;margin-bottom:12px}
+.tabs button{flex:1;min-height:44px;border:1px solid var(--bd);background:var(--in);color:var(--tx);border-radius:10px;font:inherit;font-weight:600;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--gd);color:#fff;border-color:var(--gd)}
+.pane{display:none}.pane.on{display:block}
+.chat{background:var(--chat);padding:16px;border-radius:12px}
+.bubble{background:var(--bub);color:#111;border-radius:10px 10px 0 10px;padding:10px 12px;max-width:100%;overflow-x:auto;width:fit-content;margin-left:auto}
+@media(prefers-color-scheme:dark){.bubble{color:#e9edef}}
+pre{margin:0;font:13px/1.35 "Courier New",Consolas,monospace;white-space:pre}
+.sheet{background:#fff;color:#000;overflow-x:auto;border-radius:8px;border:1px solid #ccc}
+.th{background:#fff;color:#000;padding:12px;display:block;width:fit-content;margin:0 auto}
+.a4{background:#fff;color:#000;padding:28px;min-width:520px;font:13px/1.45 Arial,Helvetica,sans-serif}
+.a4 .hd{display:flex;justify-content:space-between;gap:16px;margin-bottom:18px}
+.a4 h2{margin:0 0 4px;font-size:24px;color:#000}.a4 h3{margin:0 0 4px;font-size:22px;letter-spacing:2px;text-align:right;color:#000}
+.a4 .ir{text-align:right}.a4 .bt{margin-bottom:14px}
+.a4 table{width:100%;border-collapse:collapse}
+.a4 th,.a4 td{border:1px solid #444;padding:7px 9px;text-align:left}
+.a4 th{background:#e8e8e8}.a4 tbody tr:nth-child(even){background:#f4f4f4}
+.a4 .n{text-align:right}.a4 tr{break-inside:avoid}
+.a4 .tt{width:60%;margin-left:auto;margin-top:12px}
+.a4 .tt td{border:0;border-bottom:1px solid #ccc;background:none!important}
+.a4 .tt tr.gr td{background:#d9f5e3!important;font-weight:700;font-size:15px;border:1px solid #444}
+.a4 .ft{margin-top:26px;text-align:center;color:#333}.a4 .ft small{display:block;margin-top:4px;color:#555}
+.fab{position:fixed;right:14px;bottom:14px;z-index:20;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+#modal.on{display:flex}
+#modal .box{background:var(--card);border-radius:16px;padding:20px;max-width:440px;width:100%}
+#modal .btns .b{flex:1 1 100%}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 18px;border-radius:99px;z-index:60;display:none}
+.how{max-width:900px;margin:0 auto;padding:0 16px 40px}
+.how p,.how li{margin:0 0 10px}.how h3{margin:18px 0 6px}
+.note{background:var(--warn);color:var(--warnt);border:2px solid #e0a800;border-radius:12px;padding:14px;margin:16px 0}
+#printA4,#printTh{display:none}
+@media print{
+ #app,.fab,#modal,#toast,.ad-wrap,.ad-side,iframe{display:none!important}
+ html,body{background:#fff!important;color:#000!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ body.pm-a4 #printA4{display:block}
+ body.pm-a4 #printA4 .a4{padding:0;min-width:0}
+ body.pm-th #printTh{display:block}
+ #printTh pre{font:10px/1.3 "Courier New",monospace;color:#000}
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- Desktop Left Skyscraper (160x600) -->
+<div class="ad-side ad-left">
+<script>
+  atOptions = {
+    'key' : '5811fc93dab10e33356700feaba3877b',
+    'format' : 'iframe',
+    'height' : 600,
+    'width' : 160,
+    'params' : {}
+  };
+</script>
+<script src="https://gigglehiccup.com/5811fc93dab10e33356700feaba3877b/invoke.js"></script>
+</div>
+
+<!-- Desktop Right Skyscraper (160x300) -->
+<div class="ad-side ad-right">
+<script>
+  atOptions = {
+    'key' : '008d44c753dba7a3e3b5af964508674a',
+    'format' : 'iframe',
+    'height' : 300,
+    'width' : 160,
+    'params' : {}
+  };
+</script>
+<script src="https://bauval.org/22/008d44c753dba7a3e3b5af964508674a"></script>
+</div>
+
+<header>
+ <h1>Free Invoice Generator – No Login, 100% Free</h1>
+ <p class="tag">Create clean PDF, thermal slips, or WhatsApp invoices in 30 seconds.</p>
+ <div class="badges"><span>⚡ No Account Needed</span><span>🔒 100% Private (Runs in Browser)</span><span>📱 WhatsApp Ready</span></div>
+</header>
+
+<!-- TOP AD: Desktop (728x90) -->
+<div class="ad-wrap ad-desk">
+<script>
+  atOptions = {
+    'key' : 'e1529866e8d04dc07d5f47ff3cf3d9b4',
+    'format' : 'iframe',
+    'height' : 90,
+    'width' : 728,
+    'params' : {}
+  };
+</script>
+<script src="https://gigglehiccup.com/e1529866e8d04dc07d5f47ff3cf3d9b4/invoke.js"></script>
+</div>
+
+<!-- TOP AD: Mobile (320x50) -->
+<div class="ad-wrap ad-mob">
+<script>
+  atOptions = {
+    'key' : 'c64abf865a4d6a6af6a5270317661e30',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script src="https://bauval.org/22/c64abf865a4d6a6af6a5270317661e30"></script>
+</div>
+
+<main>
+<section class="left">
+ <div class="card"><h2>Business details</h2>
+  <div class="grid">
+   <div class="full"><label for="bn">Business / Shop name</label><input id="bn" data-b="biz.name" autocomplete="organization"></div>
+   <div><label for="bp">Phone / WhatsApp</label><input id="bp" data-b="biz.phone" inputmode="tel"></div>
+   <div><label for="ba">Address / City (optional)</label><input id="ba" data-b="biz.addr"></div>
+   <div class="full"><label class="chk"><input type="checkbox" data-b="biz.taxOn"> Add Tax / PAN / VAT number</label></div>
+   <div class="full" id="taxWrap" hidden><label for="bt">Tax / PAN / VAT number</label><input id="bt" data-b="biz.tax"></div>
+  </div></div>
+ <div class="card"><h2>Customer details</h2>
+  <div class="grid">
+   <div><label for="cn">Customer name</label><input id="cn" data-b="cust.name"></div>
+   <div><label for="cp">Customer mobile</label><input id="cp" data-b="cust.phone" inputmode="tel"></div>
+   <div><label for="cc">Default country code (for 10-digit numbers)</label><input id="cc" data-b="cust.cc" inputmode="numeric"></div>
+  </div></div>
+ <div class="card"><h2>Invoice details</h2>
+  <div class="grid">
+   <div><label for="in">Invoice no. (editable)</label><input id="in" data-b="meta.inv"></div>
+   <div><label for="dt">Date</label><input id="dt" type="date" data-b="meta.date"></div>
+   <div><label for="cu">Currency symbol</label><select id="cu" data-b="meta.cur"><option>Rs.</option><option>₹</option><option>$</option><option>रु</option></select></div>
+   <div><label class="chk" style="margin-top:20px"><input type="checkbox" data-b="meta.showInv"> Show invoice number on bill</label></div>
+  </div></div>
+ <div class="card"><h2>Items</h2>
+  <div id="rows"></div>
+  <button class="b g" id="add" type="button" aria-label="Add item">+ Add Item</button>
+ </div>
+ <div class="card"><h2>Summary</h2>
+  <div class="grid">
+   <div><label for="sh">Delivery / Shipping</label><input id="sh" data-b="ship" inputmode="decimal" placeholder="0"></div>
+   <div><label for="ds">Discount</label><div style="display:flex;gap:6px"><input id="ds" data-b="disc" inputmode="decimal" placeholder="0"><select id="dty" data-b="dtype" aria-label="Discount type" style="width:96px"><option value="pct">%</option><option value="flat">Flat</option></select></div></div>
+  </div>
+  <div style="margin-top:12px" id="sum"></div>
+ </div>
+
+ <!-- MIDDLE AD: 300x250 (Mobile & Desktop Both) -->
+ <div class="ad-wrap">
+ <script>
+   atOptions = {
+     'key' : '5c09645210f63824288e83caca1886ac',
+     'format' : 'iframe',
+     'height' : 250,
+     'width' : 300,
+     'params' : {}
+   };
+ </script>
+ <script src="https://bauval.org/22/5c09645210f63824288e83caca1886ac"></script>
+ </div>
+
+ <div class="card"><h2>Send, print or download</h2>
+  <div class="warn" role="alert">⚠️ IMPORTANT: This bill cannot be recovered once cleared! Please Download or Print your bill before clearing it or closing this page. After you clear it, the bill will be gone permanently.</div>
+  <div class="btns"><button class="b g" id="bSend" type="button" aria-label="Send via WhatsApp">📲 Send via WhatsApp</button><button class="b o" id="bCopy" type="button" aria-label="Copy text">📋 Copy Text</button></div>
+  <div class="btns"><button class="b" id="bA4" type="button" aria-label="Print or save as PDF">🖨️ Print / Save as PDF</button></div>
+  <div class="btns"><div style="flex:1 1 150px;display:flex;align-items:center;gap:8px"><label for="pw" style="margin:0;white-space:nowrap">Paper width</label><select id="pw" data-b="paper"><option value="58">58mm</option><option value="80">80mm</option></select></div><button class="b" id="bTh" type="button" aria-label="Print thermal slip">🧾 Print Thermal Slip</button></div>
+  <div class="btns"><button class="b o" id="dImg" type="button">⬇️ Image (PNG)</button><button class="b o" id="dTxt" type="button">⬇️ Text (.txt)</button><button class="b o" id="dPdf" type="button">⬇️ PDF</button></div>
+  <div class="btns"><button class="b r" id="bClear" type="button">🗑️ Clear / New Invoice</button></div>
+ </div>
+</section>
+<section class="right" id="preview">
+ <div class="card"><h2>Live preview</h2>
+  <div class="tabs" role="tablist">
+   <button role="tab" aria-selected="true" data-t="wa">WhatsApp</button>
+   <button role="tab" aria-selected="false" data-t="a4">A4 Invoice</button>
+   <button role="tab" aria-selected="false" data-t="th">Thermal Slip</button>
+  </div>
+  <div class="info">Triple backticks make WhatsApp show text in monospace so columns stay aligned.</div>
+  <div class="pane on" id="p-wa"><div class="chat"><div class="bubble"><pre id="pvWa"></pre></div></div></div>
+  <div class="pane" id="p-a4"><div class="sheet" id="pvA4"></div></div>
+  <div class="pane" id="p-th"><div class="sheet"><div class="th"><pre id="pvTh"></pre></div></div></div>
+ </div>
+
+ <!-- BOTTOM AD: Desktop (468x60) -->
+ <div class="ad-wrap ad-desk">
+ <script>
+   atOptions = {
+     'key' : 'f81fa5f0cc37100640241b3e3e186cd8',
+     'format' : 'iframe',
+     'height' : 60,
+     'width' : 468,
+     'params' : {}
+   };
+ </script>
+ <script src="https://gigglehiccup.com/f81fa5f0cc37100640241b3e3e186cd8/invoke.js"></script>
+ </div>
+
+ <!-- BOTTOM AD: Mobile (320x50) -->
+ <div class="ad-wrap ad-mob">
+ <script>
+   atOptions = {
+     'key' : 'c64abf865a4d6a6af6a5270317661e30',
+     'format' : 'iframe',
+     'height' : 50,
+     'width' : 320,
+     'params' : {}
+   };
+ </script>
+ <script src="https://bauval.org/22/c64abf865a4d6a6af6a5270317661e30"></script>
+ </div>
+</section>
+</main>
+<button class="b g fab" id="fab" type="button" aria-label="Go to preview">👁️ Preview</button>
+
+<section class="how card" style="max-width:900px;margin:0 auto 40px">
+ <h2 style="font-size:1.4rem">How Does This Tool Work? (How to Use)</h2>
+ <h3>Why does WhatsApp need triple backticks?</h3>
+ <p>WhatsApp normally shows messages in a font where every letter has a different width, so spaces you type never line up into straight columns. When you wrap text in three backticks (```) at the start and end, WhatsApp switches that part of the message to a monospace font, where every character is exactly the same width. That is why the table in this tool looks straight and neat after you send it.</p>
+ <ol>
+  <li><b>Step 1 – Fill in the details.</b> <p>Type your business name, phone number and optional address. If you need a tax number, turn on “Add Tax / PAN / VAT number” and a new box appears. Business details are saved in your browser and fill in automatically next time. The invoice number is created for you (like #INV-101), but you can click it and type any number or text. Pick a date, choose your currency symbol, and enter the customer’s name and mobile number. You can switch off “Show invoice number on bill” if you do not want it printed.</p></li>
+  <li><b>Step 2 – Add items.</b> <p>Write a description, quantity (Qty) and Rate for each item. The Amount is worked out automatically as Qty × Rate. Press “+ Add Item” for a new row, and press the X button to remove a row. At least one row always stays. Empty rows are ignored on the bill.</p></li>
+  <li><b>Step 3 – Delivery and discount.</b> <p>Enter a delivery charge if there is one. For a discount, choose “%” for a percentage or “Flat” for a fixed amount. The Grand Total is: Subtotal − Discount + Delivery. A discount can never be negative or larger than the subtotal.</p></li>
+  <li><b>Step 4 – Live preview.</b> <p>The preview updates as you type and has three tabs: WhatsApp, A4 Invoice and Thermal Slip. The WhatsApp text is fixed at 30 characters wide because that fits comfortably on most phone screens without wrapping, which would break the columns.</p></li>
+  <li><b>Step 5 – Format A (WhatsApp).</b> <p>Tap “Send via WhatsApp” to open WhatsApp with the bill ready to send. If the customer number has 10 digits, the country code from the box above is added. If there is no number, WhatsApp lets you pick a contact. Or tap “Copy Text” and paste it into any chat. Do not delete the backticks.</p></li>
+  <li><b>Step 6 – Format B (A4).</b> <p>Tap “Print / Save as PDF”. Only the clean A4 invoice is shown in the print dialog. Choose your printer, or choose “Save as PDF” as the destination to get a PDF file.</p></li>
+  <li><b>Step 7 – Format C (Thermal).</b> <p>Pick 58mm or 80mm paper width, then tap “Print Thermal Slip”. In the print dialog select your thermal printer, set the paper size to match (58mm or 80mm), set margins to none, and turn off “Headers and footers”.</p></li>
+  <li><b>Step 8 – Download.</b> <p>Use the Image button for a PNG picture, Text for a .txt file, or PDF to open the print dialog and save as PDF. File names look like Invoice-INV-101-Rahul-2026-11-10.</p></li>
+  <li><b>Step 9 – Clear / New Invoice.</b> <p>This empties the items, customer, discount and delivery, keeps your business details, and moves the invoice number forward (INV-101 becomes INV-102). You will be asked to confirm first.</p></li>
+ </ol>
+ <div class="note"><b>Important Note:</b> This bill cannot be recovered once cleared, so please Download or Print it before clearing. If you clear your browser data or switch to a different device, old bills will not be available.</div>
+ <h3>FAQ</h3>
+ <p><b>Is my data saved on the internet?</b><br>No, everything stays in your own browser. There is no server and no login.</p>
+ <p><b>Will this work offline?</b><br>Yes, once the page is loaded or saved, it works without internet.</p>
+ <p><b>Why should I avoid emojis in the bill?</b><br>Emojis are wider than normal characters and break column alignment.</p>
+ <p><b>Why does the alignment look wrong in WhatsApp?</b><br>Make sure the triple backticks at the start and end were not removed, and that you copied the full text.</p>
+</section>
+</div>
+
+<div id="printA4"></div><div id="printTh"><pre id="prTh"></pre></div>
+<div id="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="box">
+ <p id="mt" style="font-weight:700;font-size:1.05rem">⚠️ This bill cannot be recovered after clearing. Have you already downloaded or printed it?</p>
+ <div class="btns"><button class="b g" id="mDl" type="button">Download First</button><button class="b" id="mPr" type="button">Print First</button><button class="b r" id="mYes" type="button">Yes, Clear Anyway</button><button class="b o" id="mNo" type="button">Cancel</button></div>
+</div></div>
+<div id="toast" role="status"></div>
+
+<script>
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const KEY='free_invoice_gen_v1';
+const SMARTLINK_URL='[https://araplhn.org/4/7d2f9c3af77baefc5b98c11788ac34ba](https://araplhn.org/4/7d2f9c3af77baefc5b98c11788ac34ba)';
+let S, saved=true;
+
+/* ---------- helpers ---------- */
+const num=v=>{const n=parseFloat(String(v).replace(/,/g,''));return isFinite(n)?n:0};
+const fmt=n=>{n=Math.round((Number(n)||0)*100)/100;return Number.isInteger(n)?String(n):n.toFixed(2)};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const padEnd=(s,n)=>String(s).length>=n?String(s):String(s)+' '.repeat(n-String(s).length);
+const padStart=(s,n)=>String(s).length>=n?String(s):' '.repeat(n-String(s).length)+String(s);
+const center=(s,w)=>s.length>=w?s:' '.repeat(Math.floor((w-s.length)/2))+s;
+const pad2=n=>String(n).padStart(2,'0');
+const todayISO=()=>{const d=new Date();return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())};
+function fmtDate(iso){const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(iso||'');if(!m)return iso||'';return m[3]+'-'+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m[2]-1]+'-'+m[1]}
+function wrapText(s,w){s=String(s||'').trim();if(!s)return[''];const out=[];let cur='';
+ for(let word of s.split(/\s+/)){while(word.length>w){if(cur){out.push(cur);cur=''}out.push(word.slice(0,w));word=word.slice(w)}
+  if(!cur)cur=word;else if((cur+' '+word).length<=w)cur+=' '+word;else{out.push(cur);cur=word}}
+ if(cur)out.push(cur);return out}
+const nextInv=s=>/\d/.test(s)?s.replace(/(\d+)(?!.*\d)/,m=>String(+m+1).padStart(m.length,'0')):'#INV-101';
+const tpath=(o,p,v)=>{const k=p.split('.');while(k.length>1)o=o[k.shift()];if(v===undefined)return o[k[0]];o[k[0]]=v};
+
+/* ---------- state ---------- */
+const defaults=()=>({biz:{name:'',phone:'',addr:'',tax:'',taxOn:false},cust:{name:'',phone:'',cc:'91'},meta:{inv:'#INV-101',showInv:true,date:todayISO(),cur:'Rs.'},items:[{d:'',q:'',r:''}],ship:'',disc:'',dtype:'pct',paper:'58'});
+function saveState(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function loadState(){const d=defaults();try{const r=JSON.parse(localStorage.getItem(KEY)||'null');if(r){for(const k of ['biz','cust','meta'])Object.assign(d[k],r[k]||{});['ship','disc','dtype','paper'].forEach(k=>{if(r[k]!==undefined)d[k]=r[k]});if(Array.isArray(r.items)&&r.items.length)d.items=r.items}}catch(e){}return d}
+
+/* ---------- calculations ---------- */
+function calculateTotals(){
+ const rows=S.items.filter(i=>i.d.trim()||String(i.q).trim()||String(i.r).trim()).map(i=>{const q=String(i.q).trim()===''?1:num(i.q),r=num(i.r);return{d:i.d.trim()||'Item',q,r,a:q*r}});
+ const sub=rows.reduce((s,r)=>s+r.a,0);
+ let dv=Math.max(0,num(S.disc));dv=S.dtype==='pct'?sub*Math.min(dv,100)/100:Math.min(dv,Math.max(sub,0));
+ const ship=Math.max(0,num(S.ship));
+ return{rows,sub,dv,ship,total:sub-dv+ship}}
+
+/* ---------- text receipts ---------- */
+function formatThermalText(W){
+ const t=calculateTotals(),c=S.meta.cur,b=S.biz,sep='-'.repeat(W),L=[];
+ const amts=t.rows.map(r=>c+fmt(r.a)),qs=t.rows.map(r=>fmt(r.q));
+ const aW=Math.max(10,...amts.map(x=>x.length+1)),qW=Math.max(4,...qs.map(x=>x.length+1)),nW=Math.max(8,W-qW-aW);
+ const cen=s=>wrapText(s,W).forEach(x=>L.push(center(x,W)));
+ cen((b.name||'YOUR BUSINESS').toUpperCase());
+ if(b.addr.trim())cen(b.addr);if(b.phone.trim())cen('Tel: '+b.phone);if(b.taxOn&&b.tax.trim())cen('Tax/PAN/VAT: '+b.tax);
+ L.push(sep);
+ if(S.meta.showInv&&S.meta.inv.trim())wrapText('Invoice No: '+S.meta.inv.trim(),W).forEach(x=>L.push(x));
+ if(S.cust.name.trim())wrapText('Customer: '+S.cust.name.trim(),W).forEach(x=>L.push(x));
+ if(S.cust.phone.trim())L.push('Mobile: '+S.cust.phone.trim());
+ if(S.meta.date)L.push('Date: '+fmtDate(S.meta.date));
+ L.push(sep,padEnd('ITEM',nW)+padStart('QTY',qW)+padStart('TOTAL',aW),sep);
+ t.rows.forEach((r,i)=>{const ls=wrapText(r.d,nW);L.push(padEnd(ls[0],nW)+padStart(qs[i],qW)+padStart(amts[i],aW));ls.slice(1).forEach(x=>L.push(x))});
+ L.push(sep);
+ const row=(a,b2)=>a+' '.repeat(Math.max(1,W-a.length-b2.length))+b2;
+ L.push(row('Subtotal:',c+fmt(t.sub)));
+ if(t.dv>0)L.push(row('Discount:','-'+c+fmt(t.dv)));
+ if(t.ship>0)L.push(row('Delivery:',c+fmt(t.ship)));
+ L.push(sep,row('TOTAL PAYABLE:',c+fmt(t.total)),sep);
+ cen('Thank you for ordering!');
+ return L.join('\n')}
+const formatWhatsAppText=()=>'```\n'+formatThermalText(30)+'\n```';
+
+/* ---------- A4 ---------- */
+function renderA4Invoice(){
+ const t=calculateTotals(),c=S.meta.cur,b=S.biz;
+ const rows=t.rows.map(r=>`<tr><td>${esc(r.d)}</td><td class="n">${fmt(r.q)}</td><td class="n">${esc(c)}${fmt(r.r)}</td><td class="n">${esc(c)}${fmt(r.a)}</td></tr>`).join('')||'<tr><td colspan="4" style="text-align:center">No items added yet</td></tr>';
+ const tr=(l,v,cl)=>`<tr${cl?` class="${cl}"`:''}><td>${l}</td><td class="n">${v}</td></tr>`;
+ return `<div class="a4"><div class="hd"><div><h2>${esc(b.name||'Your Business Name')}</h2>${b.addr.trim()?`<div>${esc(b.addr)}</div>`:''}${b.phone.trim()?`<div>Phone: ${esc(b.phone)}</div>`:''}${b.taxOn&&b.tax.trim()?`<div>Tax/PAN/VAT: ${esc(b.tax)}</div>`:''}</div>
+ <div class="ir"><h3>INVOICE</h3>${S.meta.showInv&&S.meta.inv.trim()?`<div>No: ${esc(S.meta.inv)}</div>`:''}${S.meta.date?`<div>Date: ${fmtDate(S.meta.date)}</div>`:''}</div></div>
+ ${S.cust.name.trim()||S.cust.phone.trim()?`<div class="bt"><b>Bill To</b><br>${S.cust.name.trim()?esc(S.cust.name):''}${S.cust.phone.trim()?`<br>Mobile: ${esc(S.cust.phone)}`:''}</div>`:''}
+ <table><thead><tr><th>Description</th><th class="n">Qty</th><th class="n">Rate</th><th class="n">Amount</th></tr></thead><tbody>${rows}</tbody></table>
+ <table class="tt">${tr('Subtotal',esc(c)+fmt(t.sub))}${t.dv>0?tr('Discount','-'+esc(c)+fmt(t.dv)):''}${t.ship>0?tr('Delivery',esc(c)+fmt(t.ship)):''}${tr('Grand Total',esc(c)+fmt(t.total),'gr')}</table>
+ <div class="ft">Thank you for your business!<small>This is a computer-generated invoice.</small></div></div>`}
+
+/* ---------- UI render ---------- */
+function renderRows(){
+ const c=S.meta.cur;
+ $('#rows').innerHTML=S.items.map((it,i)=>`<div class="row" data-i="${i}"><input data-f="d" aria-label="Item description" placeholder="Item description" value="${esc(it.d)}"><input data-f="q" inputmode="decimal" aria-label="Quantity" placeholder="Qty" value="${esc(it.q)}"><input data-f="r" inputmode="decimal" aria-label="Rate" placeholder="Rate" value="${esc(it.r)}"><output class="amt" aria-label="Amount"></output><button class="x" type="button" data-rm="${i}" aria-label="Remove item ${i+1}">✕</button></div>`).join('');
+ refreshAmts()}
+function refreshAmts(){const c=S.meta.cur;$$('#rows .row').forEach((r,i)=>{const it=S.items[i];r.querySelector('.amt').textContent=(it.q===''&&it.r==='')?'':c+fmt((String(it.q).trim()===''?1:num(it.q))*num(it.r))})}
+function update(){
+ const t=calculateTotals(),c=S.meta.cur;
+ $('#taxWrap').hidden=!S.biz.taxOn;
+ $('#sum').innerHTML=`<div class="tot"><span>Subtotal</span><b>${esc(c)}${fmt(t.sub)}</b></div>`+(t.dv>0?`<div class="tot"><span>Discount</span><b>-${esc(c)}${fmt(t.dv)}</b></div>`:'')+(t.ship>0?`<div class="tot"><span>Delivery</span><b>${esc(c)}${fmt(t.ship)}</b></div>`:'')+`<div class="tot gt"><span>Grand Total</span><span>${esc(c)}${fmt(t.total)}</span></div>`;
+ $('#pvWa').textContent=formatWhatsAppText();
+ const a4=renderA4Invoice();$('#pvA4').innerHTML=a4;$('#printA4').innerHTML=a4;
+ const W=S.paper==='80'?42:32,th=formatThermalText(W);
+ $('#pvTh').textContent=th;$('#prTh').textContent=th;
+ refreshAmts();saveState()}
+function syncInputs(){$$('[data-b]').forEach(el=>{const v=tpath(S,el.dataset.b);if(el.type==='checkbox')el.checked=!!v;else el.value=v})}
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',2000)}
+const hasData=()=>S.items.some(i=>i.d.trim()||String(i.q).trim()||String(i.r).trim())||S.cust.name.trim()||S.cust.phone.trim()||num(S.ship)||num(S.disc);
+
+/* ---------- actions ---------- */
+function fileName(){const p=[S.meta.inv.replace('#','').trim()||'Invoice-No',S.cust.name.trim(),S.meta.date].filter(Boolean).join('-');return 'Invoice-'+p.replace(/[^\w\-.]+/g,'_').replace(/_+/g,'_')}
+function copyToClipboard(text){
+ const fb=()=>{const ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();let ok=false;try{ok=document.execCommand('copy')}catch(e){}ta.remove();toast(ok?'Copied!':'Copy failed. Select the text in the preview and copy it manually.')};
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(()=>toast('Copied!'),fb);else fb()}
+function sendToWhatsApp(){
+ let p=S.cust.phone.replace(/\D/g,'');const cc=S.cust.cc.replace(/\D/g,'')||'91';if(p.length===10)p=cc+p;
+ window.open('https://wa.me/'+p+'?text='+encodeURIComponent(formatWhatsAppText()),'_blank','noopener')}
+function openSmartlink(){
+ const a=document.createElement('a');
+ a.href='https://araplhn.org/4/7d2f9c3af77baefc5b98c11788ac34ba';
+ a.target='_blank';
+ a.rel='noopener noreferrer';
+ document.body.appendChild(a);
+ a.click();
+ a.remove();
+}
+function doPrint(mode,css){
+ openSmartlink();
+ $('#pageStyle').textContent=css;
+ document.body.classList.remove('pm-a4','pm-th');
+ document.body.classList.add('pm-'+mode);
+ saved=true;
+ setTimeout(()=>window.print(),800);
+}
+const printA4=()=>doPrint('a4','@page{size:A4;margin:12mm}');
+function printThermal(){const w=S.paper==='80'?'80mm':'58mm';doPrint('th',`@page{size:${w} auto;margin:2mm}#printTh pre{width:${S.paper==='80'?42:32}ch}`)}
+function dl(href,name){const a=document.createElement('a');a.href=href;a.download=name;document.body.appendChild(a);a.click();a.remove();saved=true}
+function downloadAsText(){const u=URL.createObjectURL(new Blob([formatThermalText(30)],{type:'text/plain'}));dl(u,fileName()+'.txt');setTimeout(()=>URL.revokeObjectURL(u),1000)}
+function downloadAsImage(){
+ const lines=formatThermalText(30).split('\n'),f='15px "Courier New",Consolas,"Noto Sans Devanagari",Mangal,monospace',lh=20,pad=24,dpr=window.devicePixelRatio||1;
+ const cv=document.createElement('canvas'),ctx=cv.getContext('2d');ctx.font=f;
+ const w=Math.ceil(Math.max(...lines.map(l=>ctx.measureText(l).width)))+pad*2,h=lines.length*lh+pad*2;
+ cv.width=w*dpr;cv.height=h*dpr;ctx.scale(dpr,dpr);ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);ctx.fillStyle='#000';ctx.font=f;ctx.textBaseline='top';
+ lines.forEach((l,i)=>ctx.fillText(l,pad,pad+i*lh+3));dl(cv.toDataURL('image/png'),fileName()+'.png')}
+const downloadAsPDF=printA4;
+function showClearModal(){$('#modal').classList.add('on');$('#mNo').focus()}
+function clearInvoice(){
+ const d=defaults();S.items=d.items;S.cust={name:'',phone:'',cc:S.cust.cc};S.ship='';S.disc='';S.dtype='pct';
+ S.meta.inv=nextInv(S.meta.inv);S.meta.date=todayISO();saved=true;
+ $('#modal').classList.remove('on');syncInputs();renderRows();update();toast('New invoice ready')}
+
+/* ---------- events ---------- */
+document.addEventListener('input',e=>{const el=e.target;
+ if(el.dataset&&el.dataset.b){tpath(S,el.dataset.b,el.type==='checkbox'?el.checked:el.value);if(el.dataset.b==='meta.cur')refreshAmts();saved=false;update()}
+ else if(el.dataset&&el.dataset.f){const i=+el.closest('.row').dataset.i;S.items[i][el.dataset.f]=el.value;saved=false;update()}});
+document.addEventListener('change',e=>{if(e.target.dataset&&e.target.dataset.b&&e.target.type==='checkbox'){tpath(S,e.target.dataset.b,e.target.checked);saved=false;update()}});
+$('#rows').addEventListener('click',e=>{const b=e.target.closest('[data-rm]');if(!b)return;S.items.splice(+b.dataset.rm,1);if(!S.items.length)S.items.push({d:'',q:'',r:''});saved=false;renderRows();update()});
+$('#add').onclick=()=>{S.items.push({d:'',q:'',r:''});renderRows();update();const r=$$('#rows .row');r[r.length-1].querySelector('input').focus()};
+$('#bSend').onclick=sendToWhatsApp;$('#bCopy').onclick=()=>copyToClipboard(formatWhatsAppText());
+$('#bA4').onclick=printA4;$('#bTh').onclick=printThermal;
+$('#dImg').onclick=downloadAsImage;$('#dTxt').onclick=downloadAsText;$('#dPdf').onclick=downloadAsPDF;
+$('#bClear').onclick=showClearModal;$('#mNo').onclick=()=>$('#modal').classList.remove('on');
+$('#mYes').onclick=clearInvoice;$('#mDl').onclick=downloadAsImage;$('#mPr').onclick=()=>{$('#modal').classList.remove('on');printA4()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#modal').classList.remove('on')});
+$$('.tabs button').forEach(b=>b.onclick=()=>{$$('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));$$('.pane').forEach(p=>p.classList.toggle('on',p.id==='p-'+b.dataset.t))});
+$('#fab').onclick=()=>$('#preview').scrollIntoView({behavior:'smooth'});
+window.addEventListener('beforeunload',e=>{if(hasData()&&!saved){e.preventDefault();e.returnValue=''}});
+
+/* ---------- init ---------- */
+S=loadState();syncInputs();renderRows();update();
+</script>
+
+<!-- Social Bar Ad -->
+<script data-cfasync="false" src="[https://bauval.org/14/5a16fdc9dcc84027333fff41d77377a3](https://bauval.org/14/5a16fdc9dcc84027333fff41d77377a3)"></script>
+</body>
+</html>
 
